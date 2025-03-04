@@ -31,16 +31,17 @@ require_once WPFF_PLUGIN_PATH . 'inc/class-utils.php';
  */
 function wpff_init(): void {
     // Instantiate the plugin classes
-    $loader     = new Loader();
-    $wpff_admin = new Admin();
+    $loader = new Loader();
+    $admin  = new Admin();
+    $utils  = new Utils();
 
     // Register the admin actions
-    $loader->add_action( 'acf/init', $wpff_admin, 'register_acf_feature_flags_page' );
+    $loader->add_action('acf/init', $admin, 'register_acf_feature_flags_page');
     
     // Add JavaScript support
-    $loader->add_action( 'wp_enqueue_scripts', '\WPFeatureFlags\Utils', 'enqueue_js_feature_flags' );
+    $loader->add_action('wp_enqueue_scripts', $utils, 'enqueue_js_feature_flags');
 
     // Run loader to hook everything
     $loader->run();
 }
-add_action( 'plugins_loaded', __NAMESPACE__ . '\\wpff_init' );
+add_action('plugins_loaded', __NAMESPACE__ . '\\wpff_init');

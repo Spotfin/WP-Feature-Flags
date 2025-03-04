@@ -8,7 +8,7 @@ if ( \WPFeatureFlags\Utils::is_feature_enabled('new_header') ) {
 }
 ``
 
-#### Target specicic user:
+#### Target specific user:
 
 ``
 $user_id = 5;
