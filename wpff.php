@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WordPress Feature Flags
  * Description: Feature Flag System for WordPress
- * Version:     1.0.0
+ * Version:     2.0.0
  * Author:      Drew Poland
  * Text Domain: wp-feature-flags
  */
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'WPFF_VERSION', '1.0.0' );
+define( 'WPFF_VERSION', '2.0.0' );
 define( 'WPFF_PLUGIN_FILE', __FILE__ );
 define( 'WPFF_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPFF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -36,6 +36,9 @@ function wpff_init(): void {
 
     // Register the admin actions
     $loader->add_action( 'acf/init', $wpff_admin, 'register_acf_feature_flags_page' );
+    
+    // Add JavaScript support
+    $loader->add_action( 'wp_enqueue_scripts', '\WPFeatureFlags\Utils', 'enqueue_js_feature_flags' );
 
     // Run loader to hook everything
     $loader->run();

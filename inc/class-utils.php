@@ -66,4 +66,37 @@ class Utils {
         // If the flag wasn't found at all, default to false.
         return false;
     }
+    
+    /**
+     * Enqueues feature flags for JavaScript usage
+     */
+    public static function enqueue_js_feature_flags(): void {
+        // Get all feature flags
+        $flags = self::get_feature_flags();
+        $current_user_id = get_current_user_id();
+        
+        // Create an array of enabled flags for the current user
+        $js_flags = [];
+        foreach ($flags as $flag) {
+            if (isset($flag['flag_name'])) {
+                $js_flags[$flag['flag_name']] = self::is_feature_enabled($flag['flag_name'], $current_user_id);
+            }
+        }
+        
+        // Register and enqueue our script
+        wp_register_script(
+            'wp-feature-flags', 
+            WPFF_PLUGIN_URL . 'assets/js/wp-feature-flags.js',
+            ['jquery'],
+            WPFF_VERSION,
+            true
+        );
+        
+        wp_enqueue_script('wp-feature-flags');
+        
+        // Localize the script with our data
+        wp_localize_script('wp-feature-flags', 'wpFeatureFlags', [
+            'flags' => $js_flags
+        ]);
+    }
 }

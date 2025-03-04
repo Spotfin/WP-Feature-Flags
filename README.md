@@ -3,7 +3,7 @@
 #### In template usage:
 
 ``
-if ( \WPFeatureFlags\Utils::is_feature_enabled('some_new_feature') ) {
+if ( \WPFeatureFlags\Utils::is_feature_enabled('new_header') ) {
     // Output new code
 }
 ``
@@ -12,10 +12,20 @@ if ( \WPFeatureFlags\Utils::is_feature_enabled('some_new_feature') ) {
 
 ``
 $user_id = 5;
-if ( \WPFeatureFlags\Utils::is_feature_enabled('beta_feature', $user_id) ) {
-    // Beta feature code for user #5
+if ( \WPFeatureFlags\Utils::is_feature_enabled('new_header', $user_id) ) {
+    // Run new header code for user #5
 }
 ``
 
-#### Coming Soon:
-- JavaScript feature flag
+#### JavaScript usage:
+
+``
+// Check if a feature is enabled
+if (WPFeatureFlags.isFeatureEnabled('new_header')) {
+    // Run new header code
+    $('#site-header').addClass('new-design');
+} else {
+    // Run old header code
+    $('#site-header').addClass('classic-design');
+}
+``
