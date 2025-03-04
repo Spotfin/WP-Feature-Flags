@@ -36,6 +36,9 @@ function wpff_init(): void {
 
     // Register the admin actions
     $loader->add_action( 'acf/init', $wpff_admin, 'register_acf_feature_flags_page' );
+    
+    // Add JavaScript support
+    $loader->add_action( 'wp_enqueue_scripts', '\WPFeatureFlags\Utils', 'enqueue_js_feature_flags' );
 
     // Run loader to hook everything
     $loader->run();
